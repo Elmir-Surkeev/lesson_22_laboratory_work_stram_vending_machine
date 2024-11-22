@@ -29,19 +29,34 @@ public class Action {
                     case 0:
                         break;
                     case 1:
-                        out.println("Можете вводить монеты");
+                        out.println("Можете вводить монеты\n" +
+                                "Текущий баланс = " + machine.getBalance());
                         cash = sc.nextInt();
                         machine.addCash(cash);
+                        out.println("Вы пополнили до = " + machine.getBalance());
                         break;
                     case 2:
                         machine.showAllProducts();
                         break;
                     case 3:
-                        //для метода по покупке товара
+                        if (machine.getBalance() >= MINIMAL_PRICE) {
+                            out.println("Вы можете купить");
+                            machine.filterProducts();
+                            out.println("Введите название товара или 1 для выхода в меню");
+                            String productName = sc.next();
+                            try {
+                                if (Integer.parseInt(productName) == 1) {
+                                    break;
+                                }
+                                //Я ведь могу да, так обходить проблему, обработал? или так нельзя
+                            }catch (NumberFormatException e){
+                                    machine.buyProduct(productName.toUpperCase());
+                                }
+                            }
+                        out.println("Недостаточно средств для покупки");
                         break;
                     default:
-                        throw new RuntimeException();
-
+                        out.println("Вы ввели неверные данные");
                 }
             }
         }catch (Exception e) {

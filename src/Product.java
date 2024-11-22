@@ -11,21 +11,10 @@ public class Product {
     public Product(String name, double price) {
         //Использовать так, из-за того что каждый раз одинаковое количество было
         int RANDOM_COUNT = rnd.nextInt(10);
-
         this.name = name;
         this.price = price;
         this.count = RANDOM_COUNT;
     }
-        //this.name = String.valueOf(Name.random());
-//        if(name.equals("COLA")){
-//            this.price = 90;
-//        }else if(name.equals("PEPSI")){
-//            this.price = 75;
-//        }else {
-//            this.price = 40;
-//        }
-    //private static Random rnd = new Random();
-
 
     public String getName() {
         return name;
@@ -41,6 +30,14 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     @Override
