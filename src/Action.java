@@ -1,42 +1,51 @@
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.lang.System;
-import static java.lang.System.in;
-import static java.lang.System.out;
+
+import static java.lang.System.*;
 
 public class Action {
-    static List<Products> products = Collections.singletonList(new Products());
+    static double MINIMAL_PRICE = 40;
+
     public static void main() {
+        Vending_Machine machine = new Vending_Machine();
+        //Вопрос мог ли я использовать, свой рандом ENUM не ломая логику
+        //в Enum имя + цена + количество, так чтобы был каждый товар (ps при Random некоторые товары могут повторятся
+        //Вопрос лучше так добавить несколько строк добавления товара, или же прописывать логику,
+        // если при Random 1 товар два раза, то добавлять все count в один тип товара
+        machine.addProduct((new Product("PEPSI", 90)));
+        machine.addProduct((new Product("COLA", 85)));
+        machine.addProduct((new Product("LEGENDA", MINIMAL_PRICE)));
+
         Scanner sc = new Scanner(in);
-
-        out.println("Продукты доступные в автомате");
-        out.println(products.toString());
-
-        while (true) {
-            out.println("Вставьте купюру монету (Принимаются только 5, 10, 20, 50, 100)\n" +
-                        "Автомат сдачи не выдает");
-            int cash = sc.nextInt();
-            out.println("на счету " + cash);
-            if (cash >= 40){
-                out.println("Введите 1 чтобы закинуть еще монет");
+        try {
+            while (true) {
+                int cash = 0;
+                out.println("Введите 0 для выхода из программы \n" +
+                        "Введите 1 для пополнения баланса \n" +
+                        "Введите 2 для просмотра, остатка товаров \n"+
+                        "Введите 3 для покупки товара");
                 int choice = sc.nextInt();
                 switch (choice){
                     case 0:
-                        return;
+                        break;
                     case 1:
-                        cash += sc.nextInt();
+                        out.println("Можете вводить монеты");
+                        cash = sc.nextInt();
+                        machine.addCash(cash);
                         break;
                     case 2:
-                        products.stream();
-                        buyProduct(cash);
+                        machine.showAllProducts();
                         break;
+                    case 3:
+                        //для метода по покупке товара
+                        break;
+                    default:
+                        throw new RuntimeException();
+
                 }
             }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
-    }
-    public static void buyProduct(int cash) {
-
     }
 }
