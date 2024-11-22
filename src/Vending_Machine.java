@@ -7,14 +7,18 @@ public class Vending_Machine {
 
     public Vending_Machine() {
         this.products = new ArrayList<>();
-        this.balance = 40;
+        this.balance = 0;
     }
     public void addProduct(Product product) {
         this.products.add(product);
     }
     public void showAllProducts() {
-        System.out.println("Доступные товары");
-        products.forEach(System.out::println);
+        System.out.println("Доступные товары:");
+        for (Product product : products) {
+            if (product.getCount() > 0) {
+                System.out.println("- " + product.getName() + " | Цена: " + product.getPrice() + " | Количество: " + product.getCount());
+            }
+        }
     }
     public void addCash(double cash) {
         this.balance += cash;

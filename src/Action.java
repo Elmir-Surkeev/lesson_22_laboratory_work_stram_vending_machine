@@ -19,11 +19,11 @@ public class Action {
         Scanner sc = new Scanner(in);
         try {
             while (true) {
+                machine.showAllProducts();
                 int cash = 0;
                 out.println("Введите 0 для выхода из программы \n" +
                         "Введите 1 для пополнения баланса \n" +
-                        "Введите 2 для просмотра, остатка товаров \n"+
-                        "Введите 3 для покупки товара");
+                        "Введите 2 для покупки товара");
                 int choice = sc.nextInt();
                 switch (choice){
                     case 0:
@@ -36,17 +36,25 @@ public class Action {
                         out.println("Вы пополнили до = " + machine.getBalance());
                         break;
                     case 2:
-                        machine.showAllProducts();
-                        break;
-                    case 3:
                         if (machine.getBalance() >= MINIMAL_PRICE) {
-                            out.println("Вы можете купить");
+                            out.println("Вы можете купить (без ввода дополнительных монет)");
                             machine.filterProducts();
-                            out.println("Введите название товара или 1 для выхода в меню");
+                            out.println("Введите название товара \n" +
+                                    "0 для выхода в меню или 1 для ввода монет");
                             String productName = sc.next();
                             try {
-                                if (Integer.parseInt(productName) == 1) {
+                                if (Integer.parseInt(productName) == 0) {
                                     break;
+                                }
+                                if (Integer.parseInt(productName) == 1) {
+                                    out.println("Можете вводить монеты\n" +
+                                            "Текущий баланс = " + machine.getBalance());
+                                    cash = sc.nextInt();
+                                    machine.addCash(cash);
+                                    out.println("Вы пополнили до = " + machine.getBalance());
+                                    break;
+                                }else {
+                                    out.println("Вы ввели не корректные данные");
                                 }
                                 //Я ведь могу да, так обходить проблему, обработал? или так нельзя
                             }catch (NumberFormatException e){
