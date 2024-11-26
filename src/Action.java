@@ -1,5 +1,4 @@
 import java.util.*;
-import java.lang.System;
 
 import static java.lang.System.*;
 
@@ -7,7 +6,7 @@ public class Action {
     static double MINIMAL_PRICE = 40;
 
     public static void main() {
-        Vending_Machine machine = new Vending_Machine();
+        VendingMachine machine = new VendingMachine();
         //Вопрос мог ли я использовать, свой рандом ENUM не ломая логику
         //в Enum имя + цена + количество, так чтобы был каждый товар (ps при Random некоторые товары могут повторятся
         //Вопрос лучше так добавить несколько строк добавления товара, или же прописывать логику,
@@ -25,7 +24,7 @@ public class Action {
                         "Введите 1 для пополнения баланса \n" +
                         "Введите 2 для покупки товара");
                 int choice = sc.nextInt();
-                switch (choice){
+                switch (choice) {
                     case 0:
                         break;
                     case 1:
@@ -40,34 +39,44 @@ public class Action {
                             out.println("Вы можете купить (без ввода дополнительных монет)");
                             machine.filterProducts();
                             out.println("Введите название товара \n" +
-                                    "0 для выхода в меню или 1 для ввода монет");
+                                    " (S) для выхода в меню или (A) для ввода монет");
+
                             String productName = sc.next();
+
                             try {
-                                if (Integer.parseInt(productName) == 0) {
-                                    break;
-                                }
-                                if (Integer.parseInt(productName) == 1) {
-                                    out.println("Можете вводить монеты\n" +
-                                            "Текущий баланс = " + machine.getBalance());
-                                    cash = sc.nextInt();
-                                    machine.addCash(cash);
-                                    out.println("Вы пополнили до = " + machine.getBalance());
-                                    break;
-                                }else {
-                                    out.println("Вы ввели не корректные данные");
-                                }
-                                //Я ведь могу да, так обходить проблему, обработал? или так нельзя
-                            }catch (NumberFormatException e){
-                                    machine.buyProduct(productName.toUpperCase());
+                                switch (productName) {
+                                    case "S":
+                                        break;
+                                    case "A":
+                                        out.println("Можете вводить монеты\n" +
+                                                "Текущий баланс = " + machine.getBalance());
+                                        cash = sc.nextInt();
+                                        machine.addCash(cash);
+                                        out.println("Вы пополнили до = " + machine.getBalance());
+                                        break;
+                                    case "PEPSI":
+                                        machine.buyProduct(productName.toUpperCase());
+                                        break;
+                                    case "COLA":
+                                        machine.buyProduct(productName.toUpperCase());
+                                    case "LEGENDA":
+                                        machine.buyProduct(productName.toUpperCase());
+                                        break;
+                                    default:
+                                        machine.buyProduct(productName.toUpperCase());
                                 }
                             }
-                        out.println("Недостаточно средств для покупки");
-                        break;
-                    default:
-                        out.println("Вы ввели неверные данные");
+                            catch (NumberFormatException e) {
+                                out.println("Вы ввели некорректные данные.");
+                            }
+                        }
+                        else {
+                            double differenceForBuy = MINIMAL_PRICE - machine.getBalance();
+                            out.println("Для минимальной покупки, требуется " + differenceForBuy + " сом");
+                        }
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

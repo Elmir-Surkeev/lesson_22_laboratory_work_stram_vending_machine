@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vending_Machine {
+public class VendingMachine {
     private List<Product> products;
     private double balance;
 
-    public Vending_Machine() {
+    public VendingMachine() {
         this.products = new ArrayList<>();
         this.balance = 0;
     }

@@ -6,14 +6,12 @@ public class Product {
     private double price;
     private int count;
     Random rnd = new Random();
-    //int RANDOM_COUNT = rnd.nextInt(10);
 
     public Product(String name, double price) {
-        //Использовать так, из-за того что каждый раз одинаковое количество было
-        int RANDOM_COUNT = rnd.nextInt(10);
+        int random_count = rnd.nextInt(10);
         this.name = name;
         this.price = price;
-        this.count = RANDOM_COUNT;
+        this.count = random_count;
     }
 
     public String getName() {
